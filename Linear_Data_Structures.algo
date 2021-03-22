@@ -1,0 +1,81 @@
+/*----------------------------------------1er solution----------------------------------------------------------------------------*/
+ALGORITHM Linear_Data_Structures_Project_solution1
+VAR
+    sum, sum1, sum2 : INTEGER := 0;
+    tab1 : ARRAY_OF INTEGER[5];
+    tab2 : ARRAY_OF INTEGER[5];
+    found : BOOLEAN;
+BEGIN
+
+    FOR i FROM 1 TO tab1.length STEP 1  DO
+
+    found:=false;
+
+        FOR j FROM 1 TO tab2.length STEP 1  DO
+            IF (tab1[i] = tab2[j]) THEN
+            found:=true;
+        END_FOR
+    
+        IF (found=false) THEN
+            sum1 := sum1 + tab1[i];
+        END_IF
+
+    END_FOR  
+
+    FOR i FROM 1 TO tab2.length STEP 1  DO
+
+    found:=false;
+    
+        FOR j FROM 1 TO tab1.length STEP 1  DO
+            IF (tab2[i] = tab1[j]) THEN
+            found:=true;
+        END_FOR
+    
+        IF (found=false) THEN
+            sum2 := sum2 + tab2[i];
+        END_IF
+
+    END_FOR            
+
+    sum := sum1 + sum2;        
+    Write("Output: ", sum);
+END
+
+/*----------------------------------------2éme solution----------------------------------------------------------------------------*/
+
+ALGORITHM Linear_Data_Structures_Project_solution2
+VAR
+    htab : HASH_TABLE<INTEGER,INTEGER>;
+    sum: INTEGER := 0;
+    tab1 : ARRAY_OF INTEGER[5];
+    tab2 : ARRAY_OF INTEGER[5]; 
+    tab_item : ARRAY_OF INTEGER[10];
+BEGIN
+    FOR i FROM 0 TO tab1.length STEP 1  DO
+        htab.insert(tab1[i],1);
+    END_FOR
+        
+    FOR i FROM 0 TO tab2.length-1 STEP 1  DO
+        
+        IF (htab.lookup(tab2[i]=true)) THEN
+            htab.insert(tab2[i],2);
+        ELSE
+            htab.insert(tab2[i],1); 
+        END_IF
+
+    END_FOR
+
+    FOR i FROM 0 TO tab1.length-1 STEP 1  DO
+        IF (htab.get(tab1[i]=1)) THEN
+            sum := sum+ tab1[i];
+        END_IF
+    END_FOR
+
+    FOR i FROM 0 TO tab2.length-1 STEP 1  DO
+        IF (htab.get(tab2[i]=1)) THEN
+            sum := sum+ tab2[i];
+        END_IF
+    END_FOR
+
+     Write("Output: ", sum);
+END
